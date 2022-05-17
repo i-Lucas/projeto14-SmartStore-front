@@ -1,1 +1,0 @@
-https://react-template-delta-five.vercel.app/
