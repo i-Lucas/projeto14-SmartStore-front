@@ -32,7 +32,7 @@ export default function Cart() {
 
             <div className='header'>
                 <div className='title'>
-                    <h1>Carrinho de Compras ( in development ) </h1>
+                    <h1>Em desenvolvimento</h1>
                     <ion-icon name="cart-outline"></ion-icon>
                 </div>
                 <div className='back' onClick={() => navigate('/home')}>
@@ -47,16 +47,16 @@ export default function Cart() {
                         <img src='https://img.freepik.com/fotos-gratis/imagem-aproximada-em-tons-de-cinza-de-uma-aguia-careca-americana-em-um-fundo-escuro_181624-31795.jpg?w=2000'></img>
                     </div>
                     <div className='product-info'>
-                        <div className='product-name'><h1>Nome</h1></div>
+                        <div className='product-name'><h1>Produto</h1></div>
                         <div className='product-price'><h1>R$: 100</h1></div>
-                        <div className='product-date'><h1>data</h1></div>
+                        <div className='product-date'><h1>17/05/22 09:15</h1></div>
                     </div>
                 </div>
 
             </div>
 
             <div className='finalize-purchase'>
-
+                <button onClick={() => alert('Em breve')}>Finalizar Compra</button>
             </div>
         </CartContainer>
     )
