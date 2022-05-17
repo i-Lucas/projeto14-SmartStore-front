@@ -37,7 +37,7 @@ export default function Home() {
     function SetShowCategory(e) {
 
         setData({ ...data, productCategory: e.target.value, showCategories: !data.showCategories });
-        alert(`Categoria selecionada: ${e.target.value}`);
+        // alert(`Categoria selecionada: ${e.target.value}`);
     }
 
     function ShowCategoriesList() {
@@ -59,7 +59,7 @@ export default function Home() {
     function SetShowFilter(e) {
 
         setData({ ...data, productFilter: e.target.value, showFilters: !data.showFilters });
-        alert(`Filtro: ${e.target.value}`);
+        // alert(`Filtro: ${e.target.value}`);
     }
 
     function ShowFiltersList() {
