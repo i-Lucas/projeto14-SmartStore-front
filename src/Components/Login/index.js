@@ -10,7 +10,8 @@ export default function Login() {
 
     const navigate = useNavigate();
     const [data, setData] = useState({ email: null, password: null });
-    const API = 'http://localhost:5000';
+    // const API = 'http://localhost:5000';
+    const API = 'https://smartstore10.herokuapp.com';
 
     function HandleSubmit(e) {
 

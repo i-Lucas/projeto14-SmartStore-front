@@ -9,7 +9,9 @@ export default function ComponentA() {
 
     const navigate = useNavigate();
     const [data, setData] = useState({ name: null, email: null, password: null, repeat_password: null });
-    const API = 'http://localhost:5000';
+    
+    // const API = 'http://localhost:5000';
+    const API = 'https://smartstore10.herokuapp.com';
 
     function HandleSubmit(e) {
 

@@ -11,7 +11,9 @@ import noimage from '../../assets/cam.png';
 export default function Publish() {
 
     const navigate = useNavigate();
-    const API = `http://localhost:5000`;
+    // const API = `http://localhost:5000`;
+    const API = 'https://smartstore10.herokuapp.com';
+    
     const uploader = new Uploader({ apiKey: "free" });
     const header = { headers: { "Authorization": `Bearer ${localStorage.getItem('device')}` } }
 

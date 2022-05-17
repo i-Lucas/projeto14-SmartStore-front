@@ -14,7 +14,8 @@ export default function Product() {
     const [product, setProduct] = useState({});
 
     const productID = params.ProductID;
-    const API = 'http://localhost:5000';
+    // const API = 'http://localhost:5000';
+    const API = 'https://smartstore10.herokuapp.com';
 
     useEffect(() => {
 
