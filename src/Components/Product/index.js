@@ -56,7 +56,7 @@ export default function Product() {
 
     function AddToCart() {
 
-        const Exists = cart.find(item => item.ProductID === product.ProductID);
+        const Exists = cart.find(item => item._id === product.ProductID);
 
         if (Exists) {
 
