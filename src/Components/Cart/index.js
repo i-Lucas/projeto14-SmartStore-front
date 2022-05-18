@@ -96,7 +96,7 @@ export default function Cart() {
                     <h1>Total: R$: {cart.reduce((acc, item) => acc + parseInt(item.productPrice), 0)}</h1>
                 </div>
 
-                <button onClick={() => console.log(cart)}>Finalizar Compra</button>
+                <button onClick={() => alert('Obrigado por utilizar nosso APP !!\n\nFique a vontade para dar seu feedback')}>Finalizar Compra</button>
             </div>
         </CartContainer>
     )
