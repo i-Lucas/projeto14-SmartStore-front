@@ -1,44 +1,36 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
 import HomeContainer from "./style"
-import background from '../../assets/background.jpg';
 import small_logo from '../../assets/small.svg';
+import background from '../../assets/background.jpg';
 
 export default function Home() {
 
-    // const API = `http://localhost:5000`;
-    const API = 'https://smartstore10.herokuapp.com';
-    const navigate = useNavigate();
+    const API = `http://localhost:5000`;
+    // const API = 'https://smartstore10.herokuapp.com';
 
+
+    const navigate = useNavigate();
     const [data, setData] = useState({
 
-        showCategories: false,
-        showFilters: false,
-
-        searchByName: false,
-        nameSearched: null,
-
-        productCategory: 'Todos',
-        productFilter: null,
-
+        showCategories: false, showFilters: false,
+        searchByName: false, nameSearched: null,
+        productCategory: 'Todos', productFilter: null,
     });
 
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
 
-        axios.get(`${API}/allproducts`).then(res => { setProducts(res.data); }).catch(err => { console.log(err); });
+        axios.get(`${API}/allproducts`).then(res => { setProducts(res.data); }).catch(err => { console.log(err); })
 
     }, []);
 
-    function SetShowCategory(e) {
 
-        setData({ ...data, productCategory: e.target.value, showCategories: !data.showCategories });
-        // alert(`Categoria selecionada: ${e.target.value}`);
-    }
+    const SetShowCategory = (e) => setData({ ...data, productCategory: e.target.value, showCategories: !data.showCategories });
+    const SetShowFilter = (e) => setData({ ...data, productFilter: e.target.value, showFilters: !data.showFilters });
 
     function ShowCategoriesList() {
 
@@ -56,16 +48,10 @@ export default function Home() {
         )
     }
 
-    function SetShowFilter(e) {
-
-        setData({ ...data, productFilter: e.target.value, showFilters: !data.showFilters });
-        // alert(`Filtro: ${e.target.value}`);
-    }
-
     function ShowFiltersList() {
 
         return (
-            <select onChange={e => SetShowFilter(e)} >
+            <select onChange={e => SetShowFilter(e)}>
                 <option value="Escolher">Escolher</option>
                 <option value="Baratos">Mais baratos</option>
                 <option value="Caros">Mais caros</option>
@@ -90,18 +76,17 @@ export default function Home() {
     function MapProducts() {
 
         if (data.productFilter) {
-
             if (data.productFilter === 'Baratos') products.sort((a, b) => { return a.productPrice - b.productPrice; })
             if (data.productFilter === 'Caros') products.sort((a, b) => { return b.productPrice - a.productPrice; })
         }
 
         return products.map((prd, i) => {
             if (prd.productCategory === data.productCategory || data.productCategory === 'Todos') {
+
                 return (
                     <RenderProducts
                         key={i} id={prd._id} name={prd.productName} price={prd.productPrice}
-                        date={prd.productDate} time={prd.productTime} img={prd.productImage}
-                    />
+                        date={prd.productDate} time={prd.productTime} img={prd.productImage} />
                 )
             }
         })
@@ -117,11 +102,12 @@ export default function Home() {
 
         return products.map((prd, i) => {
             if (prd.productName.toLowerCase().includes(data.nameSearched.toLowerCase())) {
+
                 return (
                     <RenderProducts
                         key={i} id={prd._id} name={prd.productName} price={prd.productPrice}
-                        date={prd.productDate} time={prd.productTime} img={prd.productImage}
-                    />
+                        date={prd.productDate} time={prd.productTime} img={prd.productImage} />
+
                 )
             }
         })
@@ -157,7 +143,6 @@ export default function Home() {
 
             <div className='products'>
                 {data.searchByName ? <MapProductsByName /> : <MapProducts />}
-                {/* <MapProducts /> */}
             </div>
 
             <div className='footer'>

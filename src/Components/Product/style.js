@@ -95,6 +95,9 @@ const ProductContainer = styled.div`
                 cursor: pointer;
             }
 
+            .red   {  color: red;     }
+            .green {  color: green;   }
+
             ion-icon {
 
                 font-size: 20px;
@@ -219,10 +222,25 @@ const ProductContainer = styled.div`
         .product-description {
 
             width: 100%;
-            height: 30%;
+            height: 20%;
             border: 1px solid black;
             border-radius: 10px;
             
+            h1 {
+
+                margin-top: 10px;
+                color: blue;
+                margin-left: 10px;
+            }
+        }
+
+        .product-owner {
+
+            width: 100%;
+            height: 10%;
+            border: 1px solid black;
+            border-radius: 10px;
+
             h1 {
 
                 margin-top: 10px;

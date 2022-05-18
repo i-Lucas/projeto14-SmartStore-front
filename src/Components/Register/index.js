@@ -7,11 +7,11 @@ import RegisterContainer from "./style"
 
 export default function ComponentA() {
 
+    const API = 'http://localhost:5000';
+    // const API = 'https://smartstore10.herokuapp.com';
+
     const navigate = useNavigate();
     const [data, setData] = useState({ name: null, email: null, password: null, repeat_password: null });
-    
-    // const API = 'http://localhost:5000';
-    const API = 'https://smartstore10.herokuapp.com';
 
     function HandleSubmit(e) {
 

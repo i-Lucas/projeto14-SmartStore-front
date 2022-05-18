@@ -10,10 +10,10 @@ import noimage from '../../assets/cam.png';
 
 export default function Publish() {
 
-    const navigate = useNavigate();
-    // const API = `http://localhost:5000`;
-    const API = 'https://smartstore10.herokuapp.com';
+    const API = `http://localhost:5000`;
+    // const API = 'https://smartstore10.herokuapp.com';
     
+    const navigate = useNavigate();
     const uploader = new Uploader({ apiKey: "free" });
     const header = { headers: { "Authorization": `Bearer ${localStorage.getItem('device')}` } }
 
@@ -56,7 +56,8 @@ export default function Publish() {
             productStatus: 'available',
             productDate: new Date().toLocaleDateString(),
             productTime: new Date().toLocaleTimeString(),
-            productOwner: localStorage.getItem('owner')
+            productOwner: localStorage.getItem('owner'),
+            productOwnerName: localStorage.getItem('name')
         }
 
         axios.post(`${API}/newproduct`, newproduct).then(res => {

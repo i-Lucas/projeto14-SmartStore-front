@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
@@ -9,22 +8,65 @@ import background from '../../assets/background.jpg';
 export default function Cart() {
 
     const navigate = useNavigate();
-    const [data, setData] = useState({});
-    // const API = `http://localhost:5000`;
-    const API = 'https://smartstore10.herokuapp.com';
+    const [cart, setCart] = useState([]);
+
+    const API = `http://localhost:5000`;
+    // const API = 'https://smartstore10.herokuapp.com';
 
     const header = { headers: { "Authorization": `Bearer ${localStorage.getItem('device')}` } }
 
     useEffect(() => {
 
-        // axios.get(`${API}/cart`, header).then(res => {
+        axios.get(`${API}/cart${localStorage.getItem('owner')}`,).then(res => {
 
-        //     setData(res.data);
-        //     console.log(res.data);
+            setCart(res.data);
 
-        // }).catch(err => alert(err.response.data));
+        }).catch(err => {
+            console.log(err.response.data);
+        });
+    }, []);
 
-    }, [])
+    function MapCartProducts() {
+
+        return cart.map((prd, i) => {
+
+            return (
+                <RenderCartProduct
+                    key={i} id={prd._id} name={prd.productName} price={prd.productPrice}
+                    date={prd.productDate} time={prd.productTime} img={prd.productImage} />
+            )
+        })
+    }
+
+    function RenderCartProduct({ name, price, date, time, img, id }) {
+
+        return (
+            <div className='product'>
+                <div className='product-image'>
+                    <img src={img}></img>
+                </div>
+                <div className='product-info'>
+                    <div className='product-name'><h1>{name}</h1><ion-icon onClick={() => RemoveProductFromCart(id)} name="trash-outline"></ion-icon></div>
+                    <div className='product-price'><h1>R$: {price}</h1></div>
+                    <div className='product-date'><h1>{date} {time}</h1></div>
+                </div>
+            </div>
+        )
+    }
+
+    function RemoveProductFromCart(id) {
+
+        const confirm = window.confirm("Tem certeza que deseja remover o produto do carrinho ?");
+        if (confirm) {
+            axios.delete(`${API}/cart${id}`).then(res => {
+                alert('Produto removido com sucesso!');
+                setCart(cart.filter(item => item._id !== id))
+            }).catch(err => {
+                alert('Erro ao remover produto do carrinho!')
+                console.log(err.response.data)
+            });
+        }
+    }
 
     return (
 
@@ -32,7 +74,7 @@ export default function Cart() {
 
             <div className='header'>
                 <div className='title'>
-                    <h1>Em desenvolvimento</h1>
+                    <h1>Carrinho de Compras</h1>
                     <ion-icon name="cart-outline"></ion-icon>
                 </div>
                 <div className='back' onClick={() => navigate('/home')}>
@@ -41,24 +83,21 @@ export default function Cart() {
             </div>
 
             <div className='content-container'>
-
-                <div className='product'>
-                    <div className='product-image'>
-                        <img src='https://img.freepik.com/fotos-gratis/imagem-aproximada-em-tons-de-cinza-de-uma-aguia-careca-americana-em-um-fundo-escuro_181624-31795.jpg?w=2000'></img>
-                    </div>
-                    <div className='product-info'>
-                        <div className='product-name'><h1>Produto</h1></div>
-                        <div className='product-price'><h1>R$: 100</h1></div>
-                        <div className='product-date'><h1>17/05/22 09:15</h1></div>
-                    </div>
-                </div>
-
+                <MapCartProducts />
             </div>
 
             <div className='finalize-purchase'>
-                <button onClick={() => alert('Em breve')}>Finalizar Compra</button>
+
+                <div className='total-products'>
+                    <h1>Total de Produtos: {cart.length}</h1>
+                </div>
+
+                <div className='total-price'>
+                    <h1>Total: R$: {cart.reduce((acc, item) => acc + parseInt(item.productPrice), 0)}</h1>
+                </div>
+
+                <button onClick={() => console.log(cart)}>Finalizar Compra</button>
             </div>
         </CartContainer>
     )
-
 }

@@ -8,14 +8,15 @@ import background from '../../assets/background.jpg';
 
 export default function Product() {
 
-    const params = useParams();
+    const API = 'http://localhost:5000';
+    // const API = 'https://smartstore10.herokuapp.com';
+
     const navigate = useNavigate();
-
     const [product, setProduct] = useState({});
+    const [cart, setCart] = useState([]);
 
+    const params = useParams();
     const productID = params.ProductID;
-    // const API = 'http://localhost:5000';
-    const API = 'https://smartstore10.herokuapp.com';
 
     useEffect(() => {
 
@@ -23,12 +24,15 @@ export default function Product() {
 
             setProduct(res.data);
 
+            axios.get(`${API}/cart${localStorage.getItem('owner')}`,).then(res => {
+
+                setCart(res.data);
+
+            });
+
         }).catch(err => {
-
-            console.log(err.response.data)
-            navigate('/home');
+            console.log(err.response.data), navigate('/home');
         });
-
     }, []);
 
     function DeleteProduct() {
@@ -50,11 +54,47 @@ export default function Product() {
         }
     }
 
-    // <h1>Product {productID}</h1>
-    // {console.log(product)}
+    function AddToCart() {
+
+        const Exists = cart.find(item => item.ProductID === product.ProductID);
+
+        if (Exists) {
+
+            const remove = window.confirm("Tem certeza que deseja remover o produto ao carrinho ?");
+            if (remove) {
+
+                axios.delete(`${API}/cart${productID}`).then(res => { setCart(cart.filter(item => item !== product)) }).catch(err => {
+                    alert('Erro ao remover produto do carrinho!')
+                });
+            }
+
+        } else {
+
+            const add = window.confirm("Tem certeza que deseja adicionar o produto ao carrinho ?");
+            if (add) {
+
+                const info = { ProductID: productID, userBuyer: localStorage.getItem('owner') };
+                axios.post(`${API}/cart`, info).then(res => {
+                    setCart([...cart, product])
+
+                }).catch(err => {
+                    alert(err.response.data);
+                });
+            }
+        }
+    }
+
+    function RandomNames() {
+
+        const names = ['Lucas', 'Felipe', 'Caio', 'Francisco', 'Laura', 'Luciana', 'Jackson', 'Miguel', 'Roberto', 'Diego']
+        const random = Math.floor(Math.random() * names.length);
+        return names[random];
+    }
 
     return (
+
         <ProductContainer productImage={product.productImage} background={background}>
+
             <div className="header">
                 <h1>{product.productName}</h1>
                 <div className='back' onClick={() => navigate('/home')}>
@@ -64,22 +104,23 @@ export default function Product() {
             <div className="img-container"><div className="img"></div></div>
             <div className='options'>
 
-                {product.productOwner === localStorage.getItem('owner') ?
-                    <div className='edit-delete'>
-                        <div className='edit' onClick={() => alert('Clicou no editar')}>
-                            <h1>Editar</h1>
-                            <ion-icon name="create-outline"></ion-icon>
+                {
+                    product.productOwner === localStorage.getItem('owner') ?
+                        <div className='edit-delete'>
+                            <div className='edit' onClick={() => alert('Clicou no editar')}>
+                                <h1>Editar</h1>
+                                <ion-icon name="create-outline"></ion-icon>
+                            </div>
+                            <div className='delete' onClick={() => DeleteProduct()}>
+                                <h1>Excluir</h1>
+                                <ion-icon name="trash-outline"></ion-icon>
+                            </div>
                         </div>
-                        <div className='delete' onClick={() => DeleteProduct()}>
-                            <h1>Excluir</h1>
-                            <ion-icon name="trash-outline"></ion-icon>
+                        :
+                        <div className='buy' onClick={() => AddToCart()}>
+                            {cart.find(item => item._id === product._id) ? <h1 className='red'>Remover do carrinho</h1> : <h1 className='green'>Adicionar ao carrinho</h1>}
+                            <ion-icon name="cart-outline"></ion-icon>
                         </div>
-                    </div>
-                    :
-                    <div className='buy'>
-                        <h1>Adicionar ao carrinho</h1>
-                        <ion-icon name="cart-outline"></ion-icon>
-                    </div>
                 }
 
             </div>
@@ -95,6 +136,10 @@ export default function Product() {
                 <h1>Descricao</h1>
                 <div className='product-description'>
                     <h1>{product.productDescription}</h1>
+                </div>
+                <h1>Postado Por</h1>
+                <div className='product-owner'>
+                    <h1>{product.productOwnerName ? product.productOwnerName : RandomNames()}</h1>
                 </div>
                 <h1>Categoria</h1>
                 <div className='product-category'>

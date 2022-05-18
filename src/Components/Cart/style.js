@@ -101,7 +101,6 @@ const CartContainer = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: pointer;
 
             .product-image {
 
@@ -140,6 +139,7 @@ const CartContainer = styled.div`
                     align-items: center;
                     background-color: #FFFFFF;
                     border-radius: 10px;
+                    position: relative;
 
                     h1 {
 
@@ -149,6 +149,14 @@ const CartContainer = styled.div`
                         line-height: 23px;
                         color: 000000; 
                         margin-left: 10px;
+                    }
+
+                    ion-icon {
+
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        cursor: pointer;
                     }
                 }
 
@@ -203,6 +211,62 @@ const CartContainer = styled.div`
 
         border: 1px solid black;
         border-radius: 10px;
+
+        button {
+
+            margin-top: 30px;
+            margin-left: 25%;
+            width: 50%;
+            height: 30%;
+
+            background: black;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+
+            font-family: 'Raleway';
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 23px;
+            color: #FFFFFF;
+        }
+
+        .total-products {
+
+            margin-top: 10px;
+            width: 100%
+            height: 30%;
+
+            h1 {
+
+                margin-top: 10px;
+                font-family: 'Raleway';                
+                font-weight: 400;
+                font-size: 22px;
+                line-height: 23px;
+                color: 000000; 
+                margin-left: 10px;
+            }
+
+        }
+
+        .total-price {
+
+            margin-top: 10px;
+            width: 100%
+            height: 40%;
+
+            h1 {
+
+                margin-top: 10px;
+                font-family: 'Raleway';                
+                font-weight: 400;
+                font-size: 22px;
+                line-height: 23px;
+                color: 000000; 
+                margin-left: 10px;
+            }
+        }
     }
 
 `

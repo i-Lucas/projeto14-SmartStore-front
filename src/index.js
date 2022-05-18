@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { createRoot } from 'react-dom/client';
 
@@ -14,6 +14,7 @@ import Product from './Components/Product';
 import Cart from './Components/Cart';
 
 function App() {
+
 	return (
 		<BrowserRouter>
 			<Routes>
