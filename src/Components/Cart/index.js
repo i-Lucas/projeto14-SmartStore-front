@@ -10,8 +10,8 @@ export default function Cart() {
     const navigate = useNavigate();
     const [cart, setCart] = useState([]);
 
-    const API = `http://localhost:5000`;
-    // const API = 'https://smartstore10.herokuapp.com';
+    // const API = `http://localhost:5000`;
+    const API = 'https://smartstore10.herokuapp.com';
 
     const header = { headers: { "Authorization": `Bearer ${localStorage.getItem('device')}` } }
 

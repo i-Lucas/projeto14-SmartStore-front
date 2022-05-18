@@ -8,8 +8,8 @@ import logo from '../../assets/logo.svg';
 
 export default function Login() {
 
-    const API = 'http://localhost:5000';
-    // const API = 'https://smartstore10.herokuapp.com';
+    // const API = 'http://localhost:5000';
+    const API = 'https://smartstore10.herokuapp.com';
 
     const navigate = useNavigate();
     const [data, setData] = useState({ email: null, password: null });

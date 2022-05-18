@@ -8,8 +8,8 @@ import background from '../../assets/background.jpg';
 
 export default function Product() {
 
-    const API = 'http://localhost:5000';
-    // const API = 'https://smartstore10.herokuapp.com';
+    // const API = 'http://localhost:5000';
+    const API = 'https://smartstore10.herokuapp.com';
 
     const navigate = useNavigate();
     const [product, setProduct] = useState({});

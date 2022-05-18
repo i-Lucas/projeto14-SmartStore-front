@@ -10,8 +10,8 @@ import noimage from '../../assets/cam.png';
 
 export default function Publish() {
 
-    const API = `http://localhost:5000`;
-    // const API = 'https://smartstore10.herokuapp.com';
+    // const API = `http://localhost:5000`;
+    const API = 'https://smartstore10.herokuapp.com';
     
     const navigate = useNavigate();
     const uploader = new Uploader({ apiKey: "free" });
